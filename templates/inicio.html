@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Inicio - Ferretería Mi Negocio{% endblock %}
+
+{% block content %}
+
+<div class="px-4 py-5 text-center text-white" 
+     style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static 'img/portada.png' %}'); background-size: cover; background-position: center;">
+    
+    <h1 class="display-4 fw-bold">Calidad y Servicio Para Tus Proyectos</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="fs-5 mb-4">Encuentra las mejores herramientas, materiales y el asesoramiento que necesitas para construir tus sueños.
+        </p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="{% url 'catalogo' %}" class="btn btn-success btn-lg px-4 gap-3">Ver Catálogo</a>
+            <a href="{% url 'quienes_somos' %}" class="btn btn-outline-light btn-lg px-4">Contáctanos</a>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2 class="pb-2 border-bottom mb-4">Nuestros Productos Más Vendidos</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for producto in productos %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}" style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text text-muted">{{ producto.categoria.nombre }}</p>
+                    <h4 class="card-text">${{ producto.precio }}</h4>
+                    <a href="#" class="btn btn-outline-success">Ver Detalles</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p>No hay productos destacados en este momento.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
